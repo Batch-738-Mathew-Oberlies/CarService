@@ -20,6 +20,7 @@ public class Address implements Serializable {
 	@Column(name = "address_id")
 	private int id;
 	private String street;
+	private String apt;
 	private String city;
 	private String state;
 	private String zip;
@@ -29,6 +30,7 @@ public class Address implements Serializable {
 		if (addressDTO != null) {
 			this.id = addressDTO.getId();
 			this.street = addressDTO.getStreet();
+			this.apt = addressDTO.getApt();
 			this.city = addressDTO.getCity();
 			this.state = addressDTO.getState();
 			this.zip = addressDTO.getZip();
