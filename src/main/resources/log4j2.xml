@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Configuration status="INFO" packages="biz.paluch.logging.gelf.log4j2">
     <Appenders>
-        <Gelf name="graylog" host="udp:lab.5x5code.com" port="12201" version="1.0" extractStackTrace="true"
+        <Gelf name="graylog" host="tcp:lab.5x5code.com" port="12201" version="1.0" extractStackTrace="true"
               filterStackTrace="true" mdcProfiling="true" includeFullMdc="true" maximumMessageSize="8192"
               originHost="car.svc.int.lab.5x5code.com"
               additionalFieldTypes="fieldName1=String,fieldName2=Double,fieldName3=Long"
