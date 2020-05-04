@@ -41,27 +41,27 @@ public class User implements Serializable {
 	private String phoneNumber;
 
 	@Column(name = "is_driver")
-	private boolean isDriver;
+	private boolean driver;
 
 	@Column(name = "is_active")
-	private boolean isActive;
+	private boolean active;
 
 	@Column(name = "is_accepting_rides")
-	private boolean isAcceptingRides;
+	private boolean acceptingRides;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "h_address")
-	private Address hAddress;
+	private Address homeAddress;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@LazyCollection(LazyCollectionOption.FALSE)
 	@JoinColumn(name = "w_address")
-	private Address wAddress;
+	private Address workAddress;
 
 
 	public User(int userId, String userName, Batch batch, String firstName, String lastName, String email, String phoneNumber,
-	            boolean isDriver, boolean isActive, boolean isAcceptingRides) {
+	            boolean driver, boolean active, boolean acceptingRides) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -70,12 +70,12 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.isDriver = isDriver;
-		this.isActive = isActive;
-		this.isAcceptingRides = isAcceptingRides;
+		this.driver = driver;
+		this.active = active;
+		this.acceptingRides = acceptingRides;
 	}
 
-	public User(String userName, Batch batch, String firstName, String lastName, String email, String phoneNumber, boolean isDriver, boolean isActive, boolean isAcceptingRides) {
+	public User(String userName, Batch batch, String firstName, String lastName, String email, String phoneNumber, boolean driver, boolean active, boolean acceptingRides) {
 		super();
 		this.userName = userName;
 		this.batch = batch;
@@ -83,9 +83,9 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.isDriver = isDriver;
-		this.isActive = isActive;
-		this.isAcceptingRides = isAcceptingRides;
+		this.driver = driver;
+		this.active = active;
+		this.acceptingRides = acceptingRides;
 	}
 
 	public User(int userId, String userName, Batch batch, String firstName, String lastName, String email, String phoneNumber) {
@@ -100,7 +100,7 @@ public class User implements Serializable {
 	}
 
 	public User(int userId, String userName, Batch batch, String firstName,
-	            String lastName, String email, String phoneNumber, Address hAddress, Address wAddress) {
+	            String lastName, String email, String phoneNumber, Address homeAddress, Address workAddress) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -109,13 +109,13 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.hAddress = hAddress;
-		this.wAddress = wAddress;
+		this.homeAddress = homeAddress;
+		this.workAddress = workAddress;
 	}
 
 	public User(int userId, String userName, Batch batch, String firstName,
-	            String lastName, String email, String phoneNumber, boolean isDriver,
-	            boolean isActive, boolean isAcceptingRides, Address hAddress, Address wAddress) {
+	            String lastName, String email, String phoneNumber, boolean driver,
+	            boolean active, boolean acceptingRides, Address homeAddress, Address workAddress) {
 		super();
 		this.userId = userId;
 		this.userName = userName;
@@ -124,11 +124,11 @@ public class User implements Serializable {
 		this.lastName = lastName;
 		this.email = email;
 		this.phoneNumber = phoneNumber;
-		this.isDriver = isDriver;
-		this.isActive = isActive;
-		this.isAcceptingRides = isAcceptingRides;
-		this.hAddress = hAddress;
-		this.wAddress = wAddress;
+		this.driver = driver;
+		this.active = active;
+		this.acceptingRides = acceptingRides;
+		this.homeAddress = homeAddress;
+		this.workAddress = workAddress;
 
 	}
 
@@ -142,11 +142,11 @@ public class User implements Serializable {
 			this.lastName = userDTO.getLastName();
 			this.email = userDTO.getEmail();
 			this.phoneNumber = userDTO.getPhoneNumber();
-			this.isDriver = userDTO.isDriver();
-			this.isActive = userDTO.isActive();
-			this.isAcceptingRides = userDTO.isAcceptingRides();
-			this.hAddress = new Address(userDTO.getHAddress());
-			this.wAddress = new Address(userDTO.getWAddress());
+			this.driver = userDTO.isDriver();
+			this.active = userDTO.isActive();
+			this.acceptingRides = userDTO.isAcceptingRides();
+			this.homeAddress = new Address(userDTO.getHomeAddress());
+			this.workAddress = new Address(userDTO.getWorkAddress());
 		}
 	}
 }
