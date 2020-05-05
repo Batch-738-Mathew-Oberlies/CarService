@@ -21,70 +21,71 @@ import static org.mockito.Mockito.when;
 public class CarServiceImplTest {
 
     @InjectMocks
-    private CarServiceImpl carService;
+    private CarServiceImpl csi;
 
     @Mock
-    private CarRepository carRepository;
+    private CarRepository cr;
 
     @Test
     public void testGettingCars() {
+
         List<Car> cars = new ArrayList<>();
         cars.add(new Car());
         cars.add(new Car());
+        when(cr.findAll()).thenReturn(cars);
 
-        when(carRepository.findAll()).thenReturn(cars);
-
-        assertEquals(2, carService.getCars().size());
+        assertEquals(2, csi.getCars().size());
     }
 
     @Test
     public void testGettingCarById() {
+
         Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
-
-        when(carRepository.findById(1)).thenReturn(Optional.of(expected));
-
-        Optional<Car> actual = carService.getCarById(1);
-        if (actual.isPresent()) assertEquals(actual.get(), expected);
-        else fail();
+        when(cr.findById(1)).thenReturn(Optional.of(expected));
+        Optional<Car> actual = csi.getCarById(1);
+        if (actual.isPresent())
+            assertEquals(actual.get(), expected);
+        else
+            fail();
     }
 
     @Test
     public void testGettingCarByUserId() {
+
         Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
+        when(cr.getCarByUserId(1)).thenReturn(expected);
+        Car actual = csi.getCarByUserId(1);
 
-        when(carRepository.getCarByUserId(1)).thenReturn(expected);
-
-        Car actual = carService.getCarByUserId(1);
         assertEquals(actual, expected);
     }
 
     @Test
     public void testAddingCar() {
+
         Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
+        when(cr.save(expected)).thenReturn(expected);
+        Car actual = csi.addCar(expected);
 
-        when(carRepository.save(expected)).thenReturn(expected);
-
-        Car actual = carService.addCar(expected);
         assertEquals(actual, expected);
     }
 
     @Test
     public void testUpdatingCar() {
+
         Car expected = new Car(1, "red", 4, "Honda", "Accord", 2015, new User());
+        when(cr.save(expected)).thenReturn(expected);
+        Car actual = csi.updateCar(expected);
 
-        when(carRepository.save(expected)).thenReturn(expected);
-
-        Car actual = carService.updateCar(expected);
         assertEquals(actual, expected);
     }
 
     @Test
     public void testDeletingCar() {
+
         String expected = "Car with id: 1 was deleted.";
+        when(cr.existsById(1)).thenReturn(true);
+        String actual = csi.deleteCarById(1);
 
-        when(carRepository.existsById(1)).thenReturn(true);
-
-        String actual = carService.deleteCarById(1);
         assertEquals(actual, expected);
     }
 }

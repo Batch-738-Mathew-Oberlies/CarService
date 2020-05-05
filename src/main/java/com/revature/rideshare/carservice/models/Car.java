@@ -13,6 +13,7 @@ import java.io.Serializable;
  * and the corresponding user.
  *
  * @author Adonis Cabreja
+ *
  */
 
 @Component

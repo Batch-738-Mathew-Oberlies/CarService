@@ -1,5 +1,6 @@
 package com.revature.rideshare.carservice.models;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,7 @@ import java.util.List;
 @Entity
 @Table(name = "trips")
 @NoArgsConstructor
+@AllArgsConstructor
 @Data
 public class Trip implements Serializable {
 	private static final long serialVersionUID = 2388220076246087232L;
@@ -56,8 +58,10 @@ public class Trip implements Serializable {
 		this.name = trip.getName();
 		this.driver = new User(trip.getDriver());
 		this.riders = new ArrayList<>();
-		for (UserDTO rider : trip.getRiders()) {
-			this.riders.add(new User(rider));
+		if (trip.getRiders() != null) {
+			for (UserDTO rider : trip.getRiders()) {
+				this.riders.add(new User(rider));
+			}
 		}
 		this.availableSeats = trip.getAvailableSeats();
 		this.departure = new Address(trip.getDeparture());
@@ -65,4 +69,5 @@ public class Trip implements Serializable {
 		this.tripDate = trip.getTripDate();
 		this.tripStatus = trip.getTripStatus();
 	}
+
 }

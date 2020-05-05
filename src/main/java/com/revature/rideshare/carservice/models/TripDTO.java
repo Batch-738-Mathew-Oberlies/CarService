@@ -1,5 +1,6 @@
 package com.revature.rideshare.carservice.models;
 
+import com.revature.rideshare.carservice.exceptions.IllegalNullArgumentException;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -40,16 +41,22 @@ public class TripDTO {
 
 	@NotNull
 	private LocalDateTime tripDate;
+
 	@Valid
 	private TripStatus tripStatus;
 
 	public TripDTO(Trip trip) {
+		if (trip == null) {
+			throw new IllegalNullArgumentException("TripDTO requires a trip to construct.");
+		}
 		this.tripId = trip.getTripId();
 		this.name = trip.getName();
 		this.driver = new UserDTO(trip.getDriver());
 		this.riders = new ArrayList<>();
-		for (User rider : trip.getRiders()) {
-			this.riders.add(new UserDTO(rider));
+		if (trip.getRiders() != null) {
+			for (User rider : trip.getRiders()) {
+				this.riders.add(new UserDTO(rider));
+			}
 		}
 		this.availableSeats = trip.getAvailableSeats();
 		this.departure = new AddressDTO(trip.getDeparture());
