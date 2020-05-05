@@ -48,7 +48,7 @@ public class CarControllerTest {
         cars.add(new Car());
         when(cs.getCars()).thenReturn(cars);
 
-        mvc.perform(get("/cars"))
+        mvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$", hasSize(2)));
     }
@@ -59,7 +59,7 @@ public class CarControllerTest {
         Car car = MockObjects.getCar();
         when(cs.getCarById(1)).thenReturn(java.util.Optional.of(car));
 
-        mvc.perform(get("/cars/{id}", 1))
+        mvc.perform(get("/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.carId").value(1));
     }
@@ -70,7 +70,7 @@ public class CarControllerTest {
         Car car = MockObjects.getCar();
         when(cs.getCarByUserId(1)).thenReturn(car);
 
-        mvc.perform(get("/cars/users/{id}", 1))
+        mvc.perform(get("/users/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.carId").value(1));
     }
@@ -82,7 +82,7 @@ public class CarControllerTest {
         CarDTO dto = new CarDTO(car);
         when(cs.addCar(new Car(dto))).thenReturn(car);
 
-        mvc.perform(post("/cars")
+        mvc.perform(post("/")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(car)))
                 .andExpect(status().isCreated())
@@ -95,7 +95,7 @@ public class CarControllerTest {
         CarDTO dto = new CarDTO(car);
         when(cs.updateCar(new Car(dto))).thenReturn(car);
 
-        mvc.perform(put("/cars/{id}", 1)
+        mvc.perform(put("/{id}", 1)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(om.writeValueAsString(car)))
                 .andExpect(status().isOk())
@@ -110,7 +110,7 @@ public class CarControllerTest {
         String returnedStr = "Car with id: " + car.getCarId() + " was deleted";
         when(cs.deleteCarById(1)).thenReturn(returnedStr);
 
-        mvc.perform(delete("/cars/{id}", 1))
+        mvc.perform(delete("/{id}", 1))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").value(returnedStr));
     }
