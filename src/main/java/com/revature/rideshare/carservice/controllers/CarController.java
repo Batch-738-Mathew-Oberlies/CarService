@@ -29,7 +29,7 @@ import java.util.Optional;
  */
 
 @RestController
-@RequestMapping("/cars")
+@RequestMapping
 @CrossOrigin
 @Validated
 @Api(tags= {"Car"})
